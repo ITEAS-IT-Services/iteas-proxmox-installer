@@ -66,6 +66,7 @@ SMB_ADMIN_PASSWD = "backmode123"
 - Webmin Management selectable
 - Puppet/Foreman autointegration
 - selectable Monitoringagent (checkMK)
+- performance optimizations (Systemd and force unmount)
 
 ## How to use?
 Download the Script for PVE8 on your Proxmoxserver, make it executable and use it. 
