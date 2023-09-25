@@ -1,0 +1,9 @@
+#!/bin/sh -e
+echo "NFS Laufwerke werden ausgehängt"
+#fusermount -uz /mnt/pve/*
+for dir in /mnt/pve/*
+do
+    dir=${dir%*/}
+    fusermount -uz "/mnt/pve/${dir##*/}"
+done
+exit 0

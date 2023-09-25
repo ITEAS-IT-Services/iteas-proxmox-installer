@@ -1,0 +1,122 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use Getopt::Long;
+use Pod::Usage;
+use constant DEFTYPE => 'size';
+
+# pod/help {{{
+=head1 NAME
+
+speicherpig - sum up process memory usage based on process names
+
+=head1 SYNOPSIS
+
+speicherpig [--count] [--help] [--byname] [--reverse] [type]
+
+=head1 OPTIONS
+
+    --count     Show count of summed up processes
+    --help      Show help and exit
+    --byname    Order output by process names, not by sums
+    --reverse   Reverse order
+                                                                                                                                            
+    type        Type of memory usage (passed to ps) to get                                                                                  
+                process memory info.  Will use 'size' by                                                                                    
+                default.  You may try 'rss'. Use 'vsize' to                                                                                 
+                include swap information.                                                                                                   
+                                                                                                                                            
+                Speicherpig expects size outputs in KiB.                                                                                    
+                                                                                                                                            
+=head1 AUTHOR                                                                                                                               
+                                                                                                                                            
+Written by Christoph 'Mehdorn' Weber                                                                                                        
+
+=head1 REPORTING BUGS
+
+Report bugs to <kontakt@das-mehdorn.de>
+
+=head1 COPYRIGHT
+
+Copyright 2010 Christoph 'Mehdorn' Weber.  License Creative Commons
+Attribution-Share Alike 3.0 Germany
+<http://creativecommons.org/licenses/by-sa/3.0/de/>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY.
+
+=head1 TRIVIA
+
+Speicherpig, speicherpig, does whatever a speicherpig does
+
+=head1 SEE ALSO
+
+ps(1), proc(5)
+
+=cut
+# }}}
+
+sub pretty_print {
+    my ($kbytes) = @_;
+
+    return sprintf "%7.2f GiB", $kbytes/1024/1024 if $kbytes > 1024*1024;
+    return sprintf "%7.2f MiB", $kbytes/1024      if $kbytes > 1024;
+    return sprintf "%7.2f KiB", $kbytes;
+}
+
+# option/parameter handling {{{
+# get options
+my $help       = 0;
+my $order_name = 0;
+my $reverse    = 0;
+my $with_count = 0;
+GetOptions(
+    'byname'  => \$order_name,
+    'count'   => \$with_count,
+    'help'    => \$help,
+    'reverse' => \$reverse,
+) or pod2usage(-exitval => 1);
+pod2usage(-exitval => 0, -verbose => 2) if $help;
+
+# get the only supported parameter
+my ($type) = @ARGV;
+$type = 'rss' unless $type;
+# }}}
+
+# get process list from ps {{{
+open(my $ps, 'ps --no-headers -eo '. $type .',comm |') or
+    die 'Cannot run ps: ', $!;
+my @proclist = <$ps>;
+close($ps) or die 'Cannot close ps: ', $!;
+chomp @proclist;
+# }}}
+
+# sum up information {{{
+my %procsums;
+my %proccounts;
+foreach my $line (@proclist) {
+    my ($size, $name) = $line =~ m{^ *(\d+) (.*)$}og;
+    $procsums{$name} += $size;
+    $proccounts{$name}++ if $with_count;
+}
+# }}}
+
+# sort output {{{
+my @key_order;
+if ($order_name) {
+    @key_order = sort keys %procsums;
+} else {
+    @key_order = sort { $procsums{$a} <=> $procsums{$b} } sort keys %procsums;
+}
+@key_order = reverse @key_order if $reverse;
+# }}}
+
+# show output {{{
+foreach my $name (@key_order) {
+    # don't show empty sets
+    next unless $procsums{$name};
+
+    printf "%16s: %s\n",
+        pretty_print($procsums{$name}),
+        $with_count ? $name .' ('. $proccounts{$name} .')' : $name
+}

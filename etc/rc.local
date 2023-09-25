@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# USB-Automount
+( devmon --no-gui --sync --mount-options "noexec,nosuid,noatime" \
+    --exec-on-drive '/usr/local/bin/mount_drive.py "%f" "%d"' \
+    --exec-on-remove '/usr/local/bin/umount_drive.py "%f"' > /dev/null 2>&1 ) &
+
+exit 0

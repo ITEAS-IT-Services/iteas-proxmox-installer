@@ -1,0 +1,12 @@
+[Unit]
+Description=boot into into the current pve kernel
+Documentation=man:kexec(8)
+DefaultDependencies=no
+Before=shutdown.target umount.target final.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/kexec -l /boot/pve/vmlinuz --initrd=/boot/pve/initrd.img --reuse-cmdline
+
+[Install]
+WantedBy=kexec.target

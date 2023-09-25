@@ -1,0 +1,11 @@
+[Unit]
+Description=/etc/rc.local.shutdown Compatibility
+Before=shutdown.target
+
+[Service]
+ExecStart=/bin/true
+ExecStop=/etc/rc.local.shutdown
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

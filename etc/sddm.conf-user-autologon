@@ -1,0 +1,16 @@
+[Autologin]
+Relogin=true
+Session=plasma.desktop
+User=user
+
+[General]
+HaltCommand=
+RebootCommand=
+
+[Theme]
+Current=breeze
+CursorTheme=Adwaita
+
+[Users]
+MaximumUid=60000
+MinimumUid=1000

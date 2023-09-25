@@ -1,0 +1,37 @@
+{"favorites":[
+    {
+        "link": "/init/",
+        "title": "System/System-Start und -Stop: System-Start- und Stop-Dienste",
+        "icon": "webmin"
+    },
+    {
+        "link": "/cron/",
+        "title": "System/Geplante Aufträge (Cron): Geplante Cron-Aufträge",
+        "icon": "webmin"
+    },
+    {
+        "link": "/at/",
+        "title": "System/Geplante Aufträge (AT): Geplante AT-Befehle",
+        "icon": "webmin"
+    },
+    {
+        "link": "/useradmin/",
+        "title": "System/Benutzer und Gruppen: Benutzer und Gruppen",
+        "icon": "webmin"
+    },
+    {
+        "link": "/samba/",
+        "title": "Server/Samba - SMB/CIFS-Fileserver: Samba Freigabeverwaltung",
+        "icon": "webmin"
+    },
+    {
+        "link": "/filemin/index.cgi?path=",
+        "title": "Sonstiges/File Manager: Filemin [/]",
+        "icon": "webmin"
+    },
+    {
+        "link": "/exports/",
+        "title": "Netzwerk/NFS-Exporte: NFS-Exporte",
+        "icon": "webmin"
+    }
+]}
