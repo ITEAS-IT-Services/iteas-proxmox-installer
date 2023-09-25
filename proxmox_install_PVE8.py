@@ -815,6 +815,7 @@ class Installer():
         run_cmd('apt dist-upgrade -y')
         apt_install('htop unp postfix sudo zsh tmux bwm-ng pigz sysstat nload apcupsd sl gawk ca-certificates-iteas-enterprise at lsb-release lshw intel-microcode amd64-microcode')
         run_cmd('ln -s /usr/games/sl /usr/local/bin/sl')
+        run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/usr/local/bin/speicherpig -O /usr/local/bin/speicherpig')
         # install ifupdown2 only if "noupdate" is not selected because the default package in the Debian sources is not compatible with proxmox
         if self.environment != "noupdate":
             apt_install('ifupdown2')
@@ -837,34 +838,34 @@ class Installer():
             # Check-MK-Agent Config
             run_cmd('wget -O /tmp/mk_smart https://git.styrion.net/iteas/check_mk-smart-plugin/raw/master/agents/smart')
             run_cmd('mv /tmp/mk_smart /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_apcupsd https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/usr/lib/check_mk_agent/plugins/mk_apcupsd')
+            run_cmd('wget -O /tmp/mk_apcupsd https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_apcupsd')
             run_cmd('mv /tmp/mk_apcupsd /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_dmi_sysinfo https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/usr/lib/check_mk_agent/plugins/mk_dmi_sysinfo')
+            run_cmd('wget -O /tmp/mk_dmi_sysinfo https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_dmi_sysinfo')
             run_cmd('mv /tmp/mk_dmi_sysinfo /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_inventory https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/usr/lib/check_mk_agent/plugins/mk_inventory')
+            run_cmd('wget -O /tmp/mk_inventory https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_inventory')
             run_cmd('mv /tmp/mk_inventory /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_lmsensors https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/usr/lib/check_mk_agent/plugins/mk_lmsensors')
+            run_cmd('wget -O /tmp/mk_lmsensors https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_lmsensors')
             run_cmd('mv /tmp/mk_lmsensors /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_logins https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/usr/lib/check_mk_agent/plugins/mk_logins')
+            run_cmd('wget -O /tmp/mk_logins https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_logins')
             run_cmd('mv /tmp/mk_logins /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_nfsexports https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/usr/lib/check_mk_agent/plugins/mk_nfsexports')
+            run_cmd('wget -O /tmp/mk_nfsexports https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_nfsexports')
             run_cmd('mv /tmp/mk_nfsexports /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_netstat https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/usr/lib/check_mk_agent/plugins/mk_netstat')
+            run_cmd('wget -O /tmp/mk_netstat https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_netstat')
             run_cmd('mv /tmp/mk_netstat /usr/lib/check_mk_agent/plugins/')
             run_cmd('chmod +x /usr/lib/check_mk_agent/plugins/mk_*', argShell=True)
 
         # APC
-        run_cmd('wget -O /etc/apcupsd/apcupsd.conf https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/etc/apcupsd.conf')
+        run_cmd('wget -O /etc/apcupsd/apcupsd.conf https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/etc/apcupsd.conf')
         file_replace_line("/etc/default/apcupsd", "ISCONFIGURED", "ISCONFIGURED=yes")
         run_cmd('systemctl enable apcupsd.service')
 
         # Nano
-        run_cmd('wget -O /tmp/nano.tar https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/config/nano.tar')
+        run_cmd('wget -O /tmp/nano.tar https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/config/nano.tar')
         run_cmd('tar -xf /tmp/nano.tar -C /root')
         run_cmd('rm /tmp/nano.tar')
 
         # ZSH
-        run_cmd('wget -O /tmp/zshrc_root https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/config/zshrc_root')
+        run_cmd('wget -O /tmp/zshrc_root https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/config/zshrc_root')
         run_cmd('mv /tmp/zshrc_root /root/.zshrc')
         file_replace_line("/root/.zshrc", "iteas.local", 'export PS1="%UDomain:%u %B%F{yellow}' + self.domain + ' $PS1"', encoding='iso8859_15')
         run_cmd('usermod -s /bin/zsh root')
@@ -875,8 +876,8 @@ class Installer():
         run_cmd('systemctl restart postfix.service')
 
         # SystemD
-        run_cmd('wget -O /etc/systemd/system/rc.local.shutdown.service https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/systemd/rc.local.shutdown.service')
-        run_cmd('wget -O /etc/rc.local.shutdown https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/systemd/rc.local.shutdown')
+        run_cmd('wget -O /etc/systemd/system/rc.local.shutdown.service https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/systemd/rc.local.shutdown.service')
+        run_cmd('wget -O /etc/rc.local.shutdown https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/systemd/rc.local.shutdown')
         run_cmd('systemctl enable rc.local.shutdown.service')
         
         # SysCTL
@@ -893,7 +894,7 @@ class Installer():
             run_cmd("groupadd localbackup", argShell=True)
             run_cmd("useradd localbackup -m -g localbackup -p '%s'" % password, argShell=True)
             run_cmd("(echo '%s'; echo '%s') | smbpasswd -a localbackup" % (password, password), argShell=True)
-            run_cmd('wget -O /etc/samba/smb.conf https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/samba/backup_default_smb2.conf')
+            run_cmd('wget -O /etc/samba/smb.conf https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/samba/backup_default_smb2.conf')
 
             backup_root = ""
             if self.filesystem == "zfs":
@@ -926,7 +927,7 @@ class Installer():
             file_replace_line("/etc/webmin/config", "lang=", "lang=de.UTF-8")
             file_append("/etc/webmin/miniserv.conf", "preroot_root=authentic-theme")
             run_cmd('mkdir /etc/webmin/authentic-theme')
-            run_cmd('wget -O /etc/webmin/authentic-theme/favorites.json https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/webmin/favorites.json')
+            run_cmd('wget -O /etc/webmin/authentic-theme/favorites.json https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/webmin/favorites.json')
             run_cmd('systemctl restart webmin')
 
 
@@ -958,11 +959,11 @@ class Installer():
 
         # Install puppet
         if self.puppet == "generic":
-            run_cmd('wget -O /tmp/install_puppet.sh https://git.styrion.net/iteas/iteas-tools/raw/master/puppet/proxmox_mit_puppet.sh && chmod +x /tmp/install_puppet.sh', argShell=True)
+            run_cmd('wget -O /tmp/install_puppet.sh https://git.styrion.net/iteas/iteas-tools/raw/master/puppet/proxmox8_mit_puppet.sh && chmod +x /tmp/install_puppet.sh', argShell=True)
             run_cmd('echo "\n" | /tmp/install_puppet.sh', argShell=True)
 
         elif self.puppet == "proxmox-desktop":
-            run_cmd('wget -O /tmp/install_puppet.sh https://git.styrion.net/iteas/iteas-tools/raw/master/puppet/proxmox_mit_puppet.sh && chmod +x /tmp/install_puppet.sh', argShell=True)
+            run_cmd('wget -O /tmp/install_puppet.sh https://git.styrion.net/iteas/iteas-tools/raw/master/puppet/proxmox8_mit_puppet.sh && chmod +x /tmp/install_puppet.sh', argShell=True)
             run_cmd('echo "\n" | /tmp/install_puppet.sh', argShell=True)
 
 
@@ -971,7 +972,7 @@ class Installer():
         if self.desktop == "plasma-light":
             apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
             run_cmd('apt remove -y konqueror', argShell=True)
-            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
+            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
             run_cmd('tar -xzf /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz -C /etc', argShell=True)
             run_cmd('mv /etc/KDE_Plasma5_Default_Profile-master /etc/skel', argShell=True)
@@ -981,7 +982,7 @@ class Installer():
         elif self.desktop == "plasma-light-win":
             apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
             run_cmd('apt remove -y konqueror', argShell=True)
-            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
+            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
             run_cmd('tar -xzf /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz -C /etc', argShell=True)
             run_cmd('mv /etc/KDE_Plasma5_Default_Profile-master /etc/skel', argShell=True)
@@ -989,14 +990,14 @@ class Installer():
             run_cmd('pveum user add user@pve', argShell=True)
             run_cmd('echo "123123\n123123" | pveum passwd user@pve', argShell=True)
             run_cmd('useradd user -c user -G dialout,cdrom,video,plugdev,games -m -s /bin/zsh -U -p \'$1$bXXXRpOf$cLs.kEex6rSD8horkJzru0\'', argShell=True)
-            run_cmd('wget -O /etc/sddm.conf https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/etc/sddm.conf-user-autologon')
+            run_cmd('wget -O /etc/sddm.conf https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/etc/sddm.conf-user-autologon')
             run_cmd('cd /tmp && git clone https://gitlab+deploy-token-1:-9F-Ty1feEf-9sQy_if4@git.styrion.net/iteas/proxmox-workstation.git && rm -rf /home/user && cp -r proxmox-workstation /home/user && chown -R user:user /home/user', argShell=True)
             run_cmd('pvesm set local -disable', argShell=True)
 
         elif self.desktop == "plasma":
             apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kde-standard plasma-desktop task-german-desktop libreoffice-l10n-de mpv speedtest-cli x2goclient filezilla mactelnet-client ksystemlog kate gtkterm sddm-theme-debian-breeze')
             run_cmd('apt remove -y konqueror', argShell=True)
-            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-tools/raw/master/proxmox/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
+            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
             run_cmd('tar -xzf /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz -C /etc', argShell=True)
             run_cmd('mv /etc/KDE_Plasma5_Default_Profile-master /etc/skel', argShell=True)
