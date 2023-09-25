@@ -816,6 +816,8 @@ class Installer():
         apt_install('htop unp postfix sudo zsh tmux bwm-ng pigz sysstat nload apcupsd sl gawk ca-certificates-iteas-enterprise at lsb-release lshw intel-microcode amd64-microcode')
         run_cmd('ln -s /usr/games/sl /usr/local/bin/sl')
         run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/usr/local/bin/speicherpig -O /usr/local/bin/speicherpig')
+        run_cmd('chmod +x /usr/local/bin/speicherpig')
+
         # install ifupdown2 only if "noupdate" is not selected because the default package in the Debian sources is not compatible with proxmox
         if self.environment != "noupdate":
             apt_install('ifupdown2')
@@ -1034,10 +1036,10 @@ tar -cf "$B_PATH`hostname -f`-backup.tar" /etc /root
         run_cmd('chmod +x /usr/local/bin/backup-proxmox-config')
 
         sum_txt = """-------------------------------------------------------------------------------
-ITEAS Proxmox Installationsbericht
+ITEAS Proxmox Installation report
 
 Loginmoeglichkeiten:
-  https://%s:8006 -> Weboberflaeche Virtualisierung
+  https://%s:8006 -> Webinterface Virtualization
 """ % check_systemip(show_prefix=False)
 
         if self.machine_type == "backup":
@@ -1048,7 +1050,7 @@ Loginmoeglichkeiten:
   SSH ueber CMD f.e "ssh root@%s"
 
 The following local users were created:
-  root (Administrator) SSH, Virtualisierung, Webmin
+  root (Administrator) SSH, Virtualization, Webmin
 """ % check_systemip(show_prefix=False)
 
         if self.machine_type == "backup":
@@ -1056,8 +1058,8 @@ The following local users were created:
 
         sum_txt += """
 
-Das Komplette Installationslog ist auf
-  /var/log/proxmox_install.log einsehbar.
+The complete installation log is available on
+  /var/log/proxmox_install.log
 -------------------------------------------------------------------------------
 """
 
@@ -1068,9 +1070,9 @@ Das Komplette Installationslog ist auf
         gui_text_box("/root/proxmox_report.txt")
 
         # Installation fertig
-        retval = gui_yesno_box("Installer", "Die Installation wurde abgeschlossen! Moechten Sie den PC/Server neustarten?")
+        retval = gui_yesno_box("Installer", "The installation was completed! Do you want to restart the PC/server?")
         if retval[0] == 0:
-            pbox = gui_progress_box("PC/Server wird automatisch neugestartet...", 0)
+            pbox = gui_progress_box("PC/Server is automatically restarted...", 0)
             for x in range(0, 5):
                 pbox.update(x*20)
                 time.sleep(1)
@@ -1078,7 +1080,7 @@ Das Komplette Installationslog ist auf
             pbox.finish()
             run_cmd('reboot')
         elif retval[0] == 1:
-            gui_message_box("Installer", "Sie muessen den PC/Server manuell neustarten um die Installation abzuschliessen!")
+            gui_message_box("Installer", "You have to restart the PC/server manually to complete the installation!")
 
 
 i = Installer()
