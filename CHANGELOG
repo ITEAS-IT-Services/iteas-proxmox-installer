@@ -1,0 +1,15 @@
+proxmox_installer_PVE8.py
+
+- switching to the new GPG scheme for the package sources
+- correct suspend error in nanorc
+- Change of package sources for free-non-free incl. microcode
+- Change the new package source for Ceph
+- Device mapping for HP package source updated
+- Updated all GPG keys
+- Customize the KDE-Plasma installation (full desktop)
+- i3 desktop removed
+- webmin is now available as modul
+- IPMICFG for Thomas Krenn/Supermicro as DEB-package installed
+- Translated the whole project to english
+- change puppet-agent installation to Debian booklworms sources.list
+- Bugfixes
