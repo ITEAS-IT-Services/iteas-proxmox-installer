@@ -87,3 +87,5 @@ Have Fun! :)
          *  /\---/\ 
             ~~   ~~   
 ..."Have you mooed today?"...
+~~~
+For professional support, please feel free to contact us also by email. support@iteas.at
