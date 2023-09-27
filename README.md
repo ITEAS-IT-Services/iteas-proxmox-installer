@@ -67,6 +67,10 @@ SMB_ADMIN_PASSWD = "backmode123"
 - Puppet/Foreman autointegration
 - selectable Monitoringagent (checkMK)
 - performance optimizations (Systemd and force unmount)
+- APC UPS Client with ready USB configuration
+- ZSH Shell
+- Nanoconfig
+- Speicherpig
 
 ## How to use?
 Download the Script for PVE8 on your Proxmoxserver, make it executable and use it. 
