@@ -14,6 +14,7 @@ import subprocess
 import requests
 import json
 
+
 # Global variables
 VERSION = "1.2.7"
 TITLE = "iteas Proxmox Installer " + VERSION
@@ -799,21 +800,23 @@ class Installer():
             VM_TEMPLATE_CIFS_PASS = ""
 
         # Apt-Proxy Cache
+
+
         if self.proxy == True:
             file_create("/etc/apt/apt.conf.d/01proxy", 'Acquire::http { Proxy "http://10.69.99.10:3142"; };')
 
         # Installieren allgemeine Tools und Monitoring-Agent
         file_create("/etc/apt/sources.list", "deb http://ftp.at.debian.org/debian bookworm main contrib non-free non-free-firmware")
-        run_cmd('echo "deb http://ftp.at.debian.org/debian bookworm-updates main contrib non-free non-free-firmware >> /etc/apt/sources.list')
-        run_cmd('echo "deb http://security.debian.org bookworm-security main contrib non-free non-free-firmware >> /etc/apt/sources.list')
-        
+        run_cmd('echo "deb http://ftp.at.debian.org/debian bookworm-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list', argShell=True)
+        run_cmd('echo "deb http://security.debian.org bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list', argShell=True)
+
         run_cmd('gpg -k')
         
         file_create("/etc/apt/sources.list.d/iteas.list", "deb [arch=amd64 signed-by=/usr/share/keyrings/iteas-keyring.gpg] http://apt.iteas.at/iteas bookworm main")
         run_cmd('wget https://apt.iteas.at/iteas-keyring.gpg -O /usr/share/keyrings/iteas-keyring.gpg', argShell=True)
         run_cmd('apt update')
         run_cmd('apt dist-upgrade -y')
-        apt_install('htop unp postfix sudo zsh tmux bwm-ng pigz sysstat nload apcupsd sl gawk ca-certificates-iteas-enterprise at lsb-release lshw intel-microcode amd64-microcode')
+        apt_install('htop unp postfix sudo zsh tmux bwm-ng pigz sysstat nload apcupsd sl gawk ca-certificates-iteas-enterprise at lsb-release lshw intel-microcode amd64-microcode fortunes-de fortunes finger')
         run_cmd('ln -s /usr/games/sl /usr/local/bin/sl')
         run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/usr/local/bin/speicherpig -O /usr/local/bin/speicherpig')
         run_cmd('chmod +x /usr/local/bin/speicherpig')
