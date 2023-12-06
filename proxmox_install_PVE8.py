@@ -872,8 +872,10 @@ class Installer():
         # ZSH
         run_cmd('wget -O /tmp/zshrc_root https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/config/zshrc_root')
         run_cmd('mv /tmp/zshrc_root /root/.zshrc')
-        file_replace_line("/root/.zshrc", "iteas.local", 'export PS1="%UDomain:%u %B%F{yellow}' + self.domain + ' $PS1"', encoding='iso8859_15')
+        file_replace_line("/root/.zshrc", "domain.foo", 'export PS1="%UDomain:%u %B%F{yellow}' + self.domain + ' $PS1"', encoding='UTF8'
+                                                                                                                                   '')
         run_cmd('usermod -s /bin/zsh root')
+
 
         # Postfix
         file_replace_line("/etc/postfix/main.cf", "myhostname=", "myhostname=" + self.fqdn + ".monitoring.iteas.at")
