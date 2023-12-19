@@ -880,6 +880,12 @@ class Installer():
         # Postfix
         file_replace_line("/etc/postfix/main.cf", "myhostname=", "myhostname=" + self.fqdn + ".monitoring.iteas.at")
         file_replace_line("/etc/postfix/main.cf", "relayhost =", "relayhost = smtp.styrion.net")
+        run_cmd('echo "smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem" >> /etc/postfix/main.cf',argShell=True)
+        run_cmd('echo "smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key" >> /etc/postfix/main.cf',argShell=True)
+        run_cmd('echo "smtpd_tls_security_level=may" >> /etc/postfix/main.cf', argShell=True)
+        run_cmd('echo "smtp_tls_CApath=/etc/ssl/certs" >> /etc/postfix/main.cf', argShell=True)
+        run_cmd('echo "smtp_tls_security_level=may" >> /etc/postfix/main.cf', argShell=True)
+        run_cmd('echo "smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache" >> /etc/postfix/main.cf',argShell=True)
         run_cmd('systemctl restart postfix.service')
 
         # SystemD
