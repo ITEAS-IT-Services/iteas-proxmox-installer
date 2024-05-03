@@ -983,8 +983,8 @@ class Installer():
 
         # Desktop Configuration
         if self.desktop == "plasma-light":
-            apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
-            run_cmd('apt remove -y konqueror', argShell=True)
+            apt_install('lm-sensors curl firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
+            run_cmd('apt remove -y konqueror juk dragonplayer timidity zutty network-manager sweeper', argShell=True)
             run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
             run_cmd('tar -xzf /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz -C /etc', argShell=True)
@@ -993,7 +993,7 @@ class Installer():
             run_cmd('useradd iteasadm -c iteasadm -G dialout,cdrom,video,plugdev,games,sudo -m -s /bin/zsh -U -p \'$1$CvBQaSeR$0phJus.ly543oq2fKOtT40\'', argShell=True)
 
         elif self.desktop == "plasma-light-win":
-            apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
+            apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
             run_cmd('apt remove -y konqueror', argShell=True)
             run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
@@ -1008,14 +1008,20 @@ class Installer():
             run_cmd('pvesm set local -disable', argShell=True)
 
         elif self.desktop == "plasma":
-            apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kde-standard plasma-desktop task-german-desktop libreoffice-l10n-de mpv speedtest-cli x2goclient filezilla mactelnet-client ksystemlog kate gtkterm sddm-theme-debian-breeze')
-            run_cmd('apt remove -y konqueror', argShell=True)
-            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
+            apt_install('lm-sensors libsane1 curl firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kde-standard plasma-desktop task-german-desktop libreoffice-l10n-de speedtest-cli x2goclient filezilla mactelnet-client ksystemlog kate gtkterm sddm-theme-debian-breeze htop tree git kate dolphin-nextcloud synaptic aspell-de hunspell-de-at mpv gnupg-agent kleopatra gnome-icon-theme mlocate kdepim kdepim-addons digikam akonadi-backend-sqlite korganizer showfoto kipi-plugins kde-config-cron dolphin-plugins filelight soundkonverter kcalc partitionmanager kronometer kfind strawberry unp simplescreenrecorder avahi-utils tellico finger  master-pdf-editor-5 gnome-disk-utility bitwarden libreoffice libreoffice-kf5 libreoffice-l10n-en-gb kwin-decoration-oxygen')
+            run_cmd('apt remove -y konqueror juk dragonplayer timidity zutty network-manager sweeper --purge', argShell=True)
+            run_cmd('wget -O /tmp/KDE_Plasma5_pve_profile.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_pve_profile.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
-            run_cmd('tar -xzf /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz -C /etc', argShell=True)
-            run_cmd('mv /etc/KDE_Plasma5_Default_Profile-master /etc/skel', argShell=True)
-            run_cmd('rm /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz', argShell=True)
-            run_cmd('useradd iteasadm -c iteasadm -G dialout,cdrom,video,plugdev,games,sudo -m -s /bin/zsh -U -p \'$1$CvBQaSeR$0phJus.ly543oq2fKOtT40\'', argShell=True)
+            run_cmd('mkdir /etc/skel', argShell=True)
+            run_cmd('tar -xzf /tmp/KDE_Plasma5_pve_profile.tar.gz -C /etc/skel', argShell=True)
+            run_cmd('rm /tmp/KDE_Plasma5_pve_profile.tar.gz', argShell=True)
+            run_cmd('mkdir /usr/local/share/wallpapers', argShell=True)
+            run_cmd('mkdir /usr/local/share/pixmaps', argShell=True)
+            run_cmd('wget -O /usr/local/share/pixmaps/. https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox%20icon.png')
+            run_cmd('wget -O /usr/local/share/pixmaps/. https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox_logo_white_background.png')
+            run_cmd('wget -O /usr/local/share/pixmaps/. https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/pve-kick.png')
+            run_cmd('wget -O /usr/local/share/wallpapers/. https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/serverfarm.jpg')
+            run_cmd('useradd pveadm -c pveadm -G dialout,cdrom,video,plugdev,games,sudo -m -s /bin/zsh -U -p \'$1$CvBQaSeR$0phJus.ly543oq2fKOtT40\'', argShell=True)
 
 
         run_cmd('apt install -f; apt autoremove --purge -y;', argShell=True)
