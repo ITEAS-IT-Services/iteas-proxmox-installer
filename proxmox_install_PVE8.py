@@ -997,7 +997,7 @@ class Installer():
             run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox_logo_white_background.png')
             run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/pve-kick.png')
             run_cmd('wget -O /usr/local/share/wallpapers/serverfarm.jpg https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/serverfarm.jpg')
-            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/conf/theme.conf.user', argShell=True)
+            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/config/theme.conf.user', argShell=True)
             run_cmd('useradd pveadm -c pveadm -G dialout,cdrom,video,plugdev,games,sudo -m -s /bin/zsh -U -p \'$1$CvBQaSeR$0phJus.ly543oq2fKOtT40\'', argShell=True)
 
         elif self.desktop == "plasma-light-win":
@@ -1030,7 +1030,7 @@ class Installer():
             run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox_logo_white_background.png')
             run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/pve-kick.png')
             run_cmd('wget -O /usr/local/share/wallpapers/serverfarm.jpg https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/serverfarm.jpg')
-            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/conf/theme.conf.user', argShell=True)
+            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/config/theme.conf.user', argShell=True)
             run_cmd('useradd pveadm -c pveadm -G dialout,cdrom,video,plugdev,games,sudo -m -s /bin/zsh -U -p \'$1$CvBQaSeR$0phJus.ly543oq2fKOtT40\'', argShell=True)
 
 
