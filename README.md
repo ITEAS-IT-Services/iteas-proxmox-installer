@@ -6,6 +6,8 @@ The installer can be used after a basic Proxmox installation and includes featur
 
 <img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/installer01.png" width="" height="500"> 
 
+<img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/Screenshot_Desktop_Plasma.png" width="" height="500">
+
 ## Features
 
 ### Selectable Machinemanufacturer
@@ -71,6 +73,9 @@ SMB_ADMIN_PASSWD = "backmode123"
 - ZSH Shell
 - Nanoconfig
 - Speicherpig
+- Plasma Desktop
+- Plasma Desktop (plasma-light) -> only base packages for the plasma desktop
+- Plasma Desktop (plasma-light-win) -> build for windows workstation with spice)
 
 ## How to use?
 Download the Script for PVE8 on your Proxmoxserver, make it executable and use it. 
