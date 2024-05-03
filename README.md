@@ -70,7 +70,7 @@ SMB_ADMIN_PASSWD = "backmode123"
 - selectable Monitoringagent (checkMK)
 - performance optimizations (Systemd and force unmount)
 - APC UPS Client with ready USB configuration
-- ZSH Shell
+- ZSH Shell https://github.com/boospy/ZSH-und-BASH-Configs
 - Nanoconfig
 - Speicherpig
 - Plasma Desktop
