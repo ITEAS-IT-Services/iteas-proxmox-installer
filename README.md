@@ -4,9 +4,9 @@ ITEAS Proxmox Installer
 =======================
 The installer can be used after a basic Proxmox installation and includes features like HP or IPMI tools, Puppet, Webmin, template import and much more.
 
-<img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/installer01.png" width="" height="500"> 
+<img src="screenshots/installer01.png" width="" height="500"> 
 
-<img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/Screenshot_Desktop_Plasma.png" width="" height="500">
+<img src="screenshots/Screenshot_Desktop_Plasma.png" width="" height="500">
 
 ## Features
 
@@ -16,7 +16,7 @@ This will install the tools of the selected manufacturer.
 - HP
 - Thomas Krenn
 
-<img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/installer02.png" width="" height="500">
+<img src="screenshots/installer02.png" width="" height="500">
 
 ### Choose an machinetype
 You can choose here "Virtualization (Default)", or "backup". What does the program for you if you choose "backup"?
@@ -28,7 +28,7 @@ If you choose "backup", the local storage is converted to a filesystem that can 
 ### IPMI pre-configuration
 IPMI Configuration of Thomas Krenn Servers (Supermicro)
 
-<img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/installer04.png" width="" height="500">
+<img src="screenshots/installer04.png" width="" height="500">
 
 ### Selectable Proxmox including Update and Subscription
 - stable (Enterprise repo)
@@ -39,7 +39,7 @@ IPMI Configuration of Thomas Krenn Servers (Supermicro)
 ### VM and LXC Template Import
 You have the possibility to import ready-made templates with the installer. The templates defined in the program are only accessible by ITEAS IT Services GmbH. To use your own templates, add your share and the ID's of the templates in the script. This will allow you to automatically roll out templates to new servers. A target storgage where templates are to be imported must be selected. 
 
-<img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/installer03.png" width="" height="500">
+<img src="screenshots/installer03.png" width="" height="500">
 
 ~~~
 self.VM_IMPORTS = {
@@ -80,7 +80,7 @@ SMB_ADMIN_PASSWD = "backmode123"
 ## How to use?
 Download the Script for PVE8 on your Proxmoxserver, make it executable and use it. 
 ~~~
-wget https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/proxmox_install_PVE8.py
+wget https://raw.githubusercontent.com/ITEAS-IT-Services/iteas-proxmox-installer/main/proxmox_install_PVE8.py
 chmod +x proxmox_install_PVE8.py
 ./proxmox_install_PVE8.py
 ~~~
