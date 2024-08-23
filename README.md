@@ -1,4 +1,4 @@
-<img src="https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/screenshots/installer05.png" width="750" height="120">
+<img src="screenshots/installer05.png" width="750" height="120">
 
 ITEAS Proxmox Installer
 =======================
@@ -75,7 +75,7 @@ SMB_ADMIN_PASSWD = "backmode123"
 - Speicherpig
 - Plasma Desktop
 - Plasma Desktop (plasma-light) -> only base packages for the plasma desktop
-- Plasma Desktop (plasma-light-win) -> build for windows workstation with spice)
+- Plasma Desktop (plasma-light-win) -> build as windows workstation with spice)
 
 ## How to use?
 Download the Script for PVE8 on your Proxmoxserver, make it executable and use it. 
@@ -85,6 +85,22 @@ chmod +x proxmox_install_PVE8.py
 ./proxmox_install_PVE8.py
 ~~~
 Follow the screen. 
+After installation the postfix configuration "main.cf" is changed for useing ITEAS/Styrion's mailservice. To change this edit the file "/etc/postfix/main.cf" with your favourite editor and change the lines as you like:
+
+~~~
+...
+myhostname=xxx.monitoring.iteas.at
+relayhost = smtp.styrion.net
+...
+~~~
+
+### If you have an Desktop installed...
+
+... a new user named "pveadm" was created. To be able to log in, please change the password of this user with the root-shell (ssh) to one you would like to use.
+~~~
+passwd pveadm
+~~~
+
 
 Have Fun! :)
 ~~~

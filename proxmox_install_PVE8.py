@@ -818,7 +818,7 @@ class Installer():
         run_cmd('apt dist-upgrade -y')
         apt_install('htop unp postfix sudo zsh tmux bwm-ng pigz sysstat nload apcupsd sl gawk ca-certificates-iteas-enterprise at lsb-release lshw intel-microcode amd64-microcode fortunes-de fortunes finger')
         run_cmd('ln -s /usr/games/sl /usr/local/bin/sl')
-        run_cmd('wget https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/usr/local/bin/speicherpig -O /usr/local/bin/speicherpig')
+        run_cmd('wget https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/local/bin/speicherpig -O /usr/local/bin/speicherpig')
         run_cmd('chmod +x /usr/local/bin/speicherpig')
 
         # install ifupdown2 only if "noupdate" is not selected because the default package in the Debian sources is not compatible with proxmox
@@ -843,34 +843,34 @@ class Installer():
             # Check-MK-Agent Config
             run_cmd('wget -O /tmp/mk_smart https://git.styrion.net/iteas/check_mk-smart-plugin/raw/master/agents/smart')
             run_cmd('mv /tmp/mk_smart /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_apcupsd https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_apcupsd')
+            run_cmd('wget -O /tmp/mk_apcupsd https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_apcupsd')
             run_cmd('mv /tmp/mk_apcupsd /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_dmi_sysinfo https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_dmi_sysinfo')
+            run_cmd('wget -O /tmp/mk_dmi_sysinfo https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_dmi_sysinfo')
             run_cmd('mv /tmp/mk_dmi_sysinfo /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_inventory https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_inventory')
+            run_cmd('wget -O /tmp/mk_inventory https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_inventory')
             run_cmd('mv /tmp/mk_inventory /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_lmsensors https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_lmsensors')
+            run_cmd('wget -O /tmp/mk_lmsensors https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_lmsensors')
             run_cmd('mv /tmp/mk_lmsensors /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_logins https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_logins')
+            run_cmd('wget -O /tmp/mk_logins https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_logins')
             run_cmd('mv /tmp/mk_logins /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_nfsexports https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_nfsexports')
+            run_cmd('wget -O /tmp/mk_nfsexports https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_nfsexports')
             run_cmd('mv /tmp/mk_nfsexports /usr/lib/check_mk_agent/plugins/')
-            run_cmd('wget -O /tmp/mk_netstat https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_netstat')
+            run_cmd('wget -O /tmp/mk_netstat https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/lib/check_mk_agent/plugins/mk_netstat')
             run_cmd('mv /tmp/mk_netstat /usr/lib/check_mk_agent/plugins/')
             run_cmd('chmod +x /usr/lib/check_mk_agent/plugins/mk_*', argShell=True)
 
         # APC
-        run_cmd('wget -O /etc/apcupsd/apcupsd.conf https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/etc/apcupsd.conf')
+        run_cmd('wget -O /etc/apcupsd/apcupsd.conf https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/etc/apcupsd.conf')
         file_replace_line("/etc/default/apcupsd", "ISCONFIGURED", "ISCONFIGURED=yes")
         run_cmd('systemctl enable apcupsd.service')
 
         # Nano
-        run_cmd('wget -O /tmp/nano.tar https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/config/nano.tar')
+        run_cmd('wget -O /tmp/nano.tar https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/config/nano.tar')
         run_cmd('tar -xf /tmp/nano.tar -C /root')
         run_cmd('rm /tmp/nano.tar')
 
         # ZSH
-        run_cmd('wget -O /tmp/zshrc_root https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/config/zshrc_root')
+        run_cmd('wget -O /tmp/zshrc_root https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/config/zshrc_root')
         run_cmd('mv /tmp/zshrc_root /root/.zshrc')
         file_replace_line("/root/.zshrc", "domain.foo", 'export PS1="%UDomain:%u %B%F{yellow}' + self.domain + ' $PS1"', encoding='UTF8'
                                                                                                                                    '')
@@ -889,8 +889,8 @@ class Installer():
         run_cmd('systemctl restart postfix.service')
 
         # SystemD
-        run_cmd('wget -O /etc/systemd/system/rc.local.shutdown.service https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/systemd/rc.local.shutdown.service')
-        run_cmd('wget -O /etc/rc.local.shutdown https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/systemd/rc.local.shutdown')
+        run_cmd('wget -O /etc/systemd/system/rc.local.shutdown.service https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/systemd/rc.local.shutdown.service')
+        run_cmd('wget -O /etc/rc.local.shutdown https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/systemd/rc.local.shutdown')
         run_cmd('systemctl enable rc.local.shutdown.service')
         
         # SysCTL
@@ -907,7 +907,7 @@ class Installer():
             run_cmd("groupadd localbackup", argShell=True)
             run_cmd("useradd localbackup -m -g localbackup -p '%s'" % password, argShell=True)
             run_cmd("(echo '%s'; echo '%s') | smbpasswd -a localbackup" % (password, password), argShell=True)
-            run_cmd('wget -O /etc/samba/smb.conf https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/samba/backup_default_smb2.conf')
+            run_cmd('wget -O /etc/samba/smb.conf https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/samba/backup_default_smb2.conf')
 
             backup_root = ""
             if self.filesystem == "zfs":
@@ -940,7 +940,7 @@ class Installer():
             file_replace_line("/etc/webmin/config", "lang=", "lang=de.UTF-8")
             file_append("/etc/webmin/miniserv.conf", "preroot_root=authentic-theme")
             run_cmd('mkdir /etc/webmin/authentic-theme')
-            run_cmd('wget -O /etc/webmin/authentic-theme/favorites.json https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/webmin/favorites.json')
+            run_cmd('wget -O /etc/webmin/authentic-theme/favorites.json https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/webmin/favorites.json')
             run_cmd('systemctl restart webmin')
 
 
@@ -985,24 +985,24 @@ class Installer():
         if self.desktop == "plasma-light":
             apt_install('lm-sensors curl firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
             run_cmd('apt remove -y konqueror juk dragonplayer timidity zutty network-manager sweeper', argShell=True)
-            run_cmd('wget -O /tmp/KDE_Plasma5_pve_profile.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_pve_profile.tar.gz')
+            run_cmd('wget -O /tmp/KDE_Plasma5_pve_profile.tar.gz https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/KDE_Plasma5_pve_profile.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
             run_cmd('mkdir /etc/skel', argShell=True)
             run_cmd('tar -xzf /tmp/KDE_Plasma5_pve_profile.tar.gz -C /etc/skel', argShell=True)
             run_cmd('rm /tmp/KDE_Plasma5_pve_profile.tar.gz', argShell=True)
             run_cmd('mkdir /usr/local/share/wallpapers', argShell=True)
             run_cmd('mkdir /usr/local/share/pixmaps', argShell=True)
-            run_cmd('cd /usr/local/share/pixmaps && wget https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox%20icon.png', argShell=True)
-            run_cmd('wget -O /usr/local/share/pixmaps/proxmox_logo_white_background.png https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox_logo_white_background.png')
-            run_cmd('wget -O /usr/local/share/pixmaps/pve-kick.png https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/pve-kick.png')
-            run_cmd('wget -O /usr/local/share/wallpapers/serverfarm.jpg https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/serverfarm.jpg')
-            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/config/theme.conf.user', argShell=True)
+            run_cmd('cd /usr/local/share/pixmaps && wget https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/proxmox%20icon.png', argShell=True)
+            run_cmd('wget -O /usr/local/share/pixmaps/proxmox_logo_white_background.png https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/proxmox_logo_white_background.png')
+            run_cmd('wget -O /usr/local/share/pixmaps/pve-kick.png https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/pve-kick.png')
+            run_cmd('wget -O /usr/local/share/wallpapers/serverfarm.jpg https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/serverfarm.jpg')
+            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/-/raw/main/config/theme.conf.user', argShell=True)
             run_cmd('useradd pveadm -c pveadm -G dialout,cdrom,video,plugdev,games,sudo -m -s /bin/zsh -U -p \'$1$CvBQaSeR$0phJus.ly543oq2fKOtT40\'', argShell=True)
 
         elif self.desktop == "plasma-light-win":
             apt_install('lm-sensors curl nomachine firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter mpv task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kate')
             run_cmd('apt remove -y konqueror', argShell=True)
-            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
+            run_cmd('wget -O /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
             run_cmd('tar -xzf /tmp/KDE_Plasma5_Default_Profile-Proxmox5.tar.gz -C /etc', argShell=True)
             run_cmd('mv /etc/KDE_Plasma5_Default_Profile-master /etc/skel', argShell=True)
@@ -1010,25 +1010,25 @@ class Installer():
             run_cmd('pveum user add user@pve', argShell=True)
             run_cmd('echo "123123\n123123" | pveum passwd user@pve', argShell=True)
             run_cmd('useradd user -c user -G dialout,cdrom,video,plugdev,games -m -s /bin/zsh -U -p \'$1$bXXXRpOf$cLs.kEex6rSD8horkJzru0\'', argShell=True)
-            run_cmd('wget -O /etc/sddm.conf https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/etc/sddm.conf-user-autologon')
+            run_cmd('wget -O /etc/sddm.conf https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/etc/sddm.conf-user-autologon')
             run_cmd('cd /tmp && git clone https://gitlab+deploy-token-1:-9F-Ty1feEf-9sQy_if4@git.styrion.net/iteas/proxmox-workstation.git && rm -rf /home/user && cp -r proxmox-workstation /home/user && chown -R user:user /home/user', argShell=True)
             run_cmd('pvesm set local -disable', argShell=True)
 
         elif self.desktop == "plasma":
             apt_install('lm-sensors libsane1 curl firefox-esr firefox-esr-l10n-de virt-viewer kde-plasma-desktop qapt-deb-installer filelight khelpcenter curl task-german-kde-desktop task-german hunspell-de-at hunspell-de-ch hyphen-de mythes-de-ch mythes-de git kde-standard plasma-desktop task-german-desktop libreoffice-l10n-de speedtest-cli x2goclient filezilla mactelnet-client ksystemlog kate gtkterm sddm-theme-debian-breeze htop tree git kate dolphin-nextcloud synaptic aspell-de hunspell-de-at mpv gnupg-agent kleopatra gnome-icon-theme mlocate kdepim kdepim-addons digikam akonadi-backend-sqlite korganizer showfoto kipi-plugins kde-config-cron dolphin-plugins filelight soundkonverter kcalc partitionmanager kronometer kfind strawberry unp simplescreenrecorder avahi-utils tellico finger  master-pdf-editor-5 gnome-disk-utility bitwarden libreoffice libreoffice-kf5 libreoffice-l10n-en-gb kwin-decoration-oxygen')
             run_cmd('apt remove -y konqueror juk dragonplayer timidity zutty network-manager sweeper --purge', argShell=True)
-            run_cmd('wget -O /tmp/KDE_Plasma5_pve_profile.tar.gz https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/KDE_Plasma5_pve_profile.tar.gz')
+            run_cmd('wget -O /tmp/KDE_Plasma5_pve_profile.tar.gz https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/KDE_Plasma5_pve_profile.tar.gz')
             run_cmd('rm -rf /etc/skel', argShell=True)
             run_cmd('mkdir /etc/skel', argShell=True)
             run_cmd('tar -xzf /tmp/KDE_Plasma5_pve_profile.tar.gz -C /etc/skel', argShell=True)
             run_cmd('rm /tmp/KDE_Plasma5_pve_profile.tar.gz', argShell=True)
             run_cmd('mkdir /usr/local/share/wallpapers', argShell=True)
             run_cmd('mkdir /usr/local/share/pixmaps', argShell=True)
-            run_cmd('cd /usr/local/share/pixmaps && wget https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox%20icon.png', argShell=True)
-            run_cmd('wget -O /usr/local/share/pixmaps/proxmox_logo_white_background.png https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/proxmox_logo_white_background.png')
-            run_cmd('wget -O /usr/local/share/pixmaps/pve-kick.png https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/pve-kick.png')
-            run_cmd('wget -O /usr/local/share/wallpapers/serverfarm.jpg https://git.styrion.net/iteas/iteas-proxmox-installer/raw/main/graphics/serverfarm.jpg')
-            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://git.styrion.net/iteas/iteas-proxmox-installer/-/raw/main/config/theme.conf.user', argShell=True)
+            run_cmd('cd /usr/local/share/pixmaps && wget https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/proxmox%20icon.png', argShell=True)
+            run_cmd('wget -O /usr/local/share/pixmaps/proxmox_logo_white_background.png https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/proxmox_logo_white_background.png')
+            run_cmd('wget -O /usr/local/share/pixmaps/pve-kick.png https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/pve-kick.png')
+            run_cmd('wget -O /usr/local/share/wallpapers/serverfarm.jpg https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/graphics/serverfarm.jpg')
+            run_cmd('wget -O /usr/share/sddm/themes/breeze/theme.conf.user https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/-/raw/main/config/theme.conf.user', argShell=True)
             run_cmd('useradd pveadm -c pveadm -G dialout,cdrom,video,plugdev,games,sudo -m -s /bin/zsh -U -p \'$1$CvBQaSeR$0phJus.ly543oq2fKOtT40\'', argShell=True)
 
 
