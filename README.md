@@ -4,6 +4,13 @@ ITEAS Proxmox Installer
 =======================
 The installer can be used after a basic Proxmox installation and includes features like HP or IPMI tools, Puppet, Webmin, template import and much more.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L813B3CV)
+
+<a href="https://www.paypal.com/donate/?hosted_button_id=JTFYJYVH37MNE">
+  <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif">
+</a>
+
+
 <img src="screenshots/installer01.png" width="" height="500"> 
 
 <img src="screenshots/Screenshot_Desktop_Plasma.png" width="" height="500">
