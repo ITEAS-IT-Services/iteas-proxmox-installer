@@ -816,7 +816,7 @@ class Installer():
         run_cmd('wget https://apt.iteas.at/iteas-keyring.gpg -O /usr/share/keyrings/iteas-keyring.gpg', argShell=True)
         run_cmd('apt update')
         run_cmd('apt dist-upgrade -y')
-        apt_install('htop unp postfix sudo zsh tmux bwm-ng pigz sysstat nload apcupsd sl gawk ca-certificates-iteas-enterprise at lsb-release lshw intel-microcode amd64-microcode fortunes-de fortunes finger')
+        apt_install('htop unp postfix sudo zsh tmux bwm-ng pigz sysstat nload apcupsd sl gawk ca-certificates-iteas-enterprise at lsb-release lshw intel-microcode amd64-microcode fortunes-de fortunes finger tree')
         run_cmd('ln -s /usr/games/sl /usr/local/bin/sl')
         run_cmd('wget https://github.com/ITEAS-IT-Services/iteas-proxmox-installer/raw/main/usr/local/bin/speicherpig -O /usr/local/bin/speicherpig')
         run_cmd('chmod +x /usr/local/bin/speicherpig')
