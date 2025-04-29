@@ -18,7 +18,7 @@ import json
 # Global variables
 VERSION = "1.2.7"
 TITLE = "iteas Proxmox Installer " + VERSION
-CHECK_INTERNET_IP = "77.235.68.35"
+CHECK_INTERNET_IP = "proxmox.com"
 VM_TEMPLATE_CIFS_SHARE = "//10.255.18.3/proxmox-install"
 VM_TEMPLATE_CIFS_USER = "localbackup02"
 SMB_ADMIN_PASSWD = "backmode123"
